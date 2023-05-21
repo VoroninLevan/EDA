@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class EncyclopediaMultiItemManager : MonoBehaviour
+public class EncyclopaediaMultiItemManager : MonoBehaviour
 {
     [SerializeField] protected TextMeshProUGUI header;
     [SerializeField] protected TextMeshProUGUI infoText;
@@ -38,12 +38,6 @@ public class EncyclopediaMultiItemManager : MonoBehaviour
     {
         if (!_isSelected && _isActive)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit)&&(hit.collider.gameObject.CompareTag("Spawned")))
-            {
-                Destroy(hit.collider.gameObject);
-            }
             if(SpawnedObjectManager.IsObjectSelected()) return;
             MoveObjectToCamera();
             SpawnedObjectManager.SetSelectedObject(gameObject);
@@ -97,7 +91,7 @@ public class EncyclopediaMultiItemManager : MonoBehaviour
     private void RetrieveData()
     {
         _header = _dbManager.GetDBEntryItem(gameObject.name);
-        _info = _dbManager.GetDBEntryInfo(gameObject.name);
+        _info = _dbManager.GetDBEntryInfo(gameObject.name, 1);
         _isDataRetrieved = !_isDataRetrieved;
     }
 
