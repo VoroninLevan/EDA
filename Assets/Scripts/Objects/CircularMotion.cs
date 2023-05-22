@@ -11,20 +11,20 @@ public class CircularMotion : MonoBehaviour
     [SerializeField] private float verticalAlignment;
     [SerializeField] private GameObject target;
 
-    private EncyclopediaMultiItemManager _encyclopediaMultiItemManager;
+    private EncyclopaediaMultiItemManager _encyclopaediaMultiItemManager;
 
 
     private Vector3 _origin, _destination;
 
     private void Start()
     {
-        _encyclopediaMultiItemManager = gameObject.GetComponent<EncyclopediaMultiItemManager>();
+        _encyclopaediaMultiItemManager = gameObject.GetComponent<EncyclopaediaMultiItemManager>();
     }
 
     // Update is called once per frame
     private void Update()
     {
-        if(_encyclopediaMultiItemManager != null && _encyclopediaMultiItemManager.IsSelected()) return;
+        if(_encyclopaediaMultiItemManager != null && _encyclopaediaMultiItemManager.IsSelected()) return;
         
         var position = target.transform.position;
         
