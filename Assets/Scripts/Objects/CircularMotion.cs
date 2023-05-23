@@ -6,10 +6,10 @@ using UnityEngine;
 
 public class CircularMotion : MonoBehaviour
 {
-    [SerializeField] private float speedReduction;
-    [SerializeField] private float amplitude;
-    [SerializeField] private float verticalAlignment;
-    [SerializeField] private GameObject target;
+    [SerializeField] public float speedReduction;
+    [SerializeField] public float amplitude;
+    [SerializeField] public float verticalAlignment;
+    [SerializeField] public GameObject target;
 
     private EncyclopaediaMultiItemManager _encyclopaediaMultiItemManager;
 
