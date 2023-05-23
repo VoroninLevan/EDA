@@ -29,11 +29,27 @@ public class DataBaseReplacement : MonoBehaviour
 
     public int GetCount(string name)
     {
-        return Int32.Parse(_database[name][0]);
+        try
+        {
+            return Int32.Parse(_database[name][0]);
+        }
+        catch (KeyNotFoundException e)
+        {
+            Console.WriteLine(e);
+            return 0;
+        }
     }
 
     public string GetInfo(string name, int index)
     {
-        return _database[name][index];
+        try
+        {
+            return _database[name][index];
+        }
+        catch (KeyNotFoundException e)
+        {
+            Console.WriteLine(e);
+            return null;
+        }
     }
 }
