@@ -10,6 +10,7 @@ public class DataBaseReplacementTests
 
     private const string Venus = "Venus";
     private const string Moon = "Moon";
+    private const string VenusInfo = "Similar in structure and size to Earth";
 
 
     [SetUp]
@@ -34,6 +35,14 @@ public class DataBaseReplacementTests
     public IEnumerator DataBaseReplacementTests_CountIsOne()
     {
         Assert.AreEqual(1, _dataBaseReplacement.GetCount(Venus));
+        
+        yield return null;
+    }
+    
+    [UnityTest]
+    public IEnumerator DataBaseReplacementTests_InfoAsExpected()
+    {
+        Assert.True(_dataBaseReplacement.GetInfo(Venus, 1).Contains(VenusInfo));
         
         yield return null;
     }
