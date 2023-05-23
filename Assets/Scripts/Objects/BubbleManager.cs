@@ -12,18 +12,21 @@ public class BubbleManager : MonoBehaviour
     private DataBaseManager _dbManager;
     private GameObject _parent;
     private EncyclopaediaSingleItemManager _parentScript;
+    private DataBaseReplacement _dataBaseReplacement;
 
-    private GameObject _infoGameObject;
-    private TextMeshProUGUI _infoText;
+    public GameObject infoGameObject;
+    public TextMeshProUGUI infoText;
 
     private void Start()
     {
         _dbManager = GameObject.Find("DBManager").GetComponent<DataBaseManager>();
-        _parent = GameObject.FindWithTag("Spawned");
+        _dataBaseReplacement = GameObject.Find("Dict").GetComponent<DataBaseReplacement>();
+        
+        _parent = GameObject.FindWithTag("SpawnedSingle");
         _parentScript = _parent.GetComponent<EncyclopaediaSingleItemManager>();
     }
 
-    private void OnMouseDown()
+    public void OnMouseDown()
     {
         _parentScript.HideBubbles();
         SetText();
@@ -38,20 +41,31 @@ public class BubbleManager : MonoBehaviour
     {
         GetEntry();
 
-        _infoGameObject.SetActive(true);
-        _infoText.text = _entry;
+        infoGameObject.SetActive(true);
+        infoText.text = _entry;
     }
 
     private void GetEntry()
     {
         if(_entry != null) return;
-        _entry = _dbManager.GetDBEntryInfo(_parent.name, _index);
+        //_entry = _dbManager.GetDBEntryInfo(_parent.name, _index);
+        _entry = _dataBaseReplacement.GetInfo(_parent.name, _index);
     }
 
     public void SetTextObjects(GameObject canvas, TextMeshProUGUI infoText)
     {
-        if(_infoGameObject != null) return;
-        _infoGameObject = canvas;
-        _infoText = infoText;
+        if(infoGameObject != null) return;
+        infoGameObject = canvas;
+        this.infoText = infoText;
+    }
+
+    public GameObject GetParent()
+    {
+        return _parent;
+    }
+
+    public int GetIndex()
+    {
+        return _index;
     }
 }
