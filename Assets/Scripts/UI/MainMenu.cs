@@ -19,14 +19,5 @@ public class MainMenu : MonoBehaviour
     {
         _screenWidth = Screen.width;
         _screenHeight = Screen.height;
-        CalculateMainMenuButtonDimensions();
-    }
-
-    private void CalculateMainMenuButtonDimensions()
-    {
-        int dynamicButtonWidth = (int)((WidthPercentage * 100) * _screenWidth);
-        int dynamicButtonHeight = (int)((HeightPercentage * 100) * _screenHeight);
-
-        //scanButton.GetComponent<RectTransform>().localScale = new Vector3(0.25f,0.2f,1);
     }
 }
