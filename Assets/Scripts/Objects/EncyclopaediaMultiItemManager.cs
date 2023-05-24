@@ -22,6 +22,7 @@ public class EncyclopaediaMultiItemManager : MonoBehaviour
     
     private Transform _cameraTransform;
     private DataBaseManager _dbManager;
+    private DataBaseReplacement _dataBaseReplacement;
 
 
     // Start is called before the first frame update
@@ -32,9 +33,10 @@ public class EncyclopaediaMultiItemManager : MonoBehaviour
         if (Camera.main != null) _cameraTransform = Camera.main.transform;
 
         _dbManager = GameObject.Find("DBManager").GetComponent<DataBaseManager>();
+        _dataBaseReplacement = GameObject.Find("Dict").GetComponent<DataBaseReplacement>();
     }
 
-    private void OnMouseDown()
+    public void OnMouseDown()
     {
         if (!_isSelected && _isActive)
         {
@@ -90,8 +92,11 @@ public class EncyclopaediaMultiItemManager : MonoBehaviour
 
     private void RetrieveData()
     {
-        _header = _dbManager.GetDBEntryItem(gameObject.name);
-        _info = _dbManager.GetDBEntryInfo(gameObject.name, 1);
+        //_header = _dbManager.GetDBEntryItem(gameObject.name);
+        _header = gameObject.name;
+        //_info = _dbManager.GetDBEntryInfo(gameObject.name, 1);
+        _info = _dataBaseReplacement.GetInfo(gameObject.name, 1);
+        
         _isDataRetrieved = !_isDataRetrieved;
     }
 

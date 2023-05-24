@@ -23,7 +23,7 @@ public class ARImageTracking : MonoBehaviour
             currentPrefab.name = prefab.name;
             
             spawnedPrefabs.Add(prefab.name, currentPrefab);
-            //currentPrefab.SetActive(false);
+            currentPrefab.SetActive(false);
         }
     }
 
@@ -56,7 +56,7 @@ public class ARImageTracking : MonoBehaviour
     private void UpdateImage(ARTrackedImage image)
     {
         string name = image.referenceImage.name;
-        Vector3 position = image.transform.position;
+        Vector3 position = image.transform.up * 0.2f;
 
         GameObject prefab = spawnedPrefabs[name];
         prefab.transform.position = position;

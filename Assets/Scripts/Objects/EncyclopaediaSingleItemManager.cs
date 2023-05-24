@@ -10,6 +10,7 @@ public class EncyclopaediaSingleItemManager : MonoBehaviour
     [SerializeField] private GameObject[] points;
     
     private DataBaseManager _dbManager;
+    private DataBaseReplacement _dataBaseReplacement;
 
     private List<GameObject> _initBubbles;
     
@@ -24,9 +25,12 @@ public class EncyclopaediaSingleItemManager : MonoBehaviour
     void Start()
     {
         _dbManager = GameObject.Find("DBManager").GetComponent<DataBaseManager>();
+        _dataBaseReplacement = GameObject.Find("Dict").GetComponent<DataBaseReplacement>();
+        
         _initBubbles = new List<GameObject>();
         
-        int entryCount = _dbManager.GetEntryCount(gameObject.name);
+        //int entryCount = _dbManager.GetEntryCount(gameObject.name);
+        int entryCount = _dataBaseReplacement.GetCount(gameObject.name);
         
         FindTextObjects();
 
@@ -89,5 +93,10 @@ public class EncyclopaediaSingleItemManager : MonoBehaviour
     private void SetHeader()
     {
         _header.text = gameObject.name;
+    }
+
+    public int GetInitBubbles()
+    {
+        return _initBubbles.Count;
     }
 }
