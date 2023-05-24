@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "518813690470",
+    "project_id": "eca-app-ff483",
+    "storage_bucket": "eca-app-ff483.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:518813690470:android:88edcd20e1aab1e101dba7",
+        "android_client_info": {
+          "package_name": "com.levanvoronin.ECA"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "518813690470-8pqjmqrhh13mavum8psqpdfped97l8il.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAa2Tm7Ap827BNLtuKc-hkKZIonyI1VNyY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "518813690470-8pqjmqrhh13mavum8psqpdfped97l8il.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
