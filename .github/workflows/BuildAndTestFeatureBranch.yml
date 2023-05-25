@@ -1,10 +1,11 @@
 name: Build 🔨 and test 🧪 feature branch
 
-on: push
-  branches-ignore:
-    - 'master'
-    - 'qa'
-    - 'dev'
+on: 
+  push:
+    branches-ignore:
+      - 'master'
+      - 'qa'
+      - 'dev'
   
 jobs:
   Build:
