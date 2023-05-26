@@ -4,8 +4,8 @@ on:
   push:
     branches-ignore:
       - 'master'
-      - 'qa'
-      - 'dev'
+      - 'QA'
+      - 'Dev'
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
