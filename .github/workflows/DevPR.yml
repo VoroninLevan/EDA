@@ -3,7 +3,7 @@ name: Test 🧪 Scan 🔍 and Build 🔨 for Dev
 on:
   pull_request:
     branches:
-      - 'dev'
+      - dev
         
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
