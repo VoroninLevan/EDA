@@ -1,0 +1,23 @@
+repo:
+- '*'
+  
+readme:
+- README.md
+
+test:
+- Assets/Tests/*
+    
+armngr:
+- Assets/Scripts/ARManager/*
+
+behaviour:
+- Assets/Scripts/Behaviour/*
+
+database:
+- Assets/Scripts/DataBase/*
+
+object:
+- Assets/Scripts/Objects/*
+
+ui:
+- Assets/Scripts/UI/*
