@@ -54,7 +54,8 @@ jobs:
           path: ${{ steps.testRunner.outputs.artifactsPath }}
 
   slackFailedNotification:
-    if: ${{ failure() }}
+    needs: testRunner
+    if: ${{ always() && contains(join(needs.testRunner.result, ','), 'failure') }}
     name: Slack Failure Notification
     runs-on: ubuntu-latest
     steps:
@@ -70,7 +71,8 @@ jobs:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           
   slackSuccessNotification:
-    if: ${{ success() }}
+    needs: testRunner
+    if: ${{ always() && contains(join(needs.testRunner.result, ','), 'success') }}
     name: Slack Successful Notification
     runs-on: ubuntu-latest
     steps:
