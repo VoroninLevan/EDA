@@ -10,7 +10,6 @@ env:
   
 jobs:
   testRunner:
-    needs: checkLicense
     name: Test all modes 📝
     runs-on: ubuntu-latest
     steps:
