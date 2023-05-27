@@ -18,3 +18,4 @@ jobs:
       pull-requests: write
   callTo-TestWF:
     uses: VoroninLevan/EDA/.github/workflows/TestWF.yml@master
+    secrets: inherit
