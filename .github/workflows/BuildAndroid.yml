@@ -70,7 +70,7 @@ jobs:
           SLACK_USERNAME: RoboRam
           SLACK_TITLE: FAILURE
           SLACK_MESSAGE: ':x: Android build failed :ram:'
-          SLACK_CHANNEL: ghintegration
+          SLACK_CHANNEL: build
           SLACK_COLOR: ${{ job.status }}
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
 
@@ -87,6 +87,6 @@ jobs:
           SLACK_USERNAME: RoboRam
           SLACK_TITLE: SUCCESS
           SLACK_MESSAGE: ':green_apple: Android build succeeded :ram:'
-          SLACK_CHANNEL: ghintegration
+          SLACK_CHANNEL: build
           SLACK_COLOR: ${{ job.status }}
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
