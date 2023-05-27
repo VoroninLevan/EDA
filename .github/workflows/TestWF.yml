@@ -1,11 +1,14 @@
-name: Test feature branch 🧪
+name: Test 🧪
 
-on: 
-  push:
-    branches-ignore:
-      - master
-      - QA
-      - Dev
+on:
+  workflow_call:
+    inputs:
+      config-path:
+        required: true
+        type: string
+    secrets:
+      token:
+        required: true
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -66,7 +69,7 @@ jobs:
           SLACK_USERNAME: RoboRam
           SLACK_TITLE: FAILURE
           SLACK_MESSAGE: ':x: Test job failed :ram:'
-          SLACK_CHANNEL: ghintegration
+          SLACK_CHANNEL: test
           SLACK_COLOR: ${{ job.status }}
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           
@@ -83,6 +86,6 @@ jobs:
           SLACK_USERNAME: RoboRam
           SLACK_TITLE: SUCCESS
           SLACK_MESSAGE: ':green_apple: Test job succeeded :ram:'
-          SLACK_CHANNEL: ghintegration
+          SLACK_CHANNEL: test
           SLACK_COLOR: ${{ job.status }}
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}

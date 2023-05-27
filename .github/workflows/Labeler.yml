@@ -1,0 +1,21 @@
+name: Apply change labels 🏷️
+
+on:
+  workflow_call:
+    inputs:
+      config-path:
+        required: true
+        type: string
+    secrets:
+      token:
+        required: true
+  
+jobs:
+  triage:
+    name: Changes labeling
+    permissions:
+      contents: read
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/labeler@v4
