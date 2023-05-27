@@ -12,6 +12,6 @@ env:
 
 jobs:
   callTo-Labeler:
-    uses: VoroninLevan/EDA/.github/workflows/Labeler.yml
+    uses: VoroninLevan/EDA/.github/workflows/Labeler.yml@master
   callTo-TestWF:
-    uses: VoroninLevan/EDA/.github/workflows/TestWF.yml
+    uses: VoroninLevan/EDA/.github/workflows/TestWF.yml@master
