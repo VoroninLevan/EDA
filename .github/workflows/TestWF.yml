@@ -1,11 +1,6 @@
 name: Test 🧪
 
-on:
-  workflow_call:
-    inputs:
-      config-path:
-        required: true
-        type: string
+on: workflow_call
         
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}

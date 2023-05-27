@@ -1,11 +1,6 @@
 name: Apply change labels 🏷️
 
-on:
-  workflow_call:
-    inputs:
-      config-path:
-        required: true
-        type: string
+on: workflow_call
   
 jobs:
   triage:
