@@ -1,4 +1,4 @@
-name: Apply change labels
+name: Apply change labels 🏷️
 
 on:
   workflow_call:
@@ -12,6 +12,7 @@ on:
   
 jobs:
   triage:
+    name: Changes labeling
     permissions:
       contents: read
       pull-requests: write
