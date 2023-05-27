@@ -51,7 +51,7 @@ jobs:
           
   slackFailedNotification:
     needs: buildAndroid
-    if: ${{ always() && contains(join(needs.testRunner.result, ','), 'failure') }}
+    if: ${{ always() && contains(join(needs.buildAndroid.result, ','), 'failure') }}
     name: Slack Failure Notification
     runs-on: ubuntu-latest
     steps:
@@ -68,7 +68,7 @@ jobs:
 
   slackSuccessNotification:
     needs: buildAndroid
-    if: ${{ always() && contains(join(needs.testRunner.result, ','), 'success') }}
+    if: ${{ always() && contains(join(needs.buildAndroid.result, ','), 'success') }}
     name: Slack Successful Notification
     runs-on: ubuntu-latest
     steps:
