@@ -1,11 +1,14 @@
 name: Test feature branch 🧪
 
-on: 
-  push:
-    branches-ignore:
-      - master
-      - QA
-      - Dev
+on:
+  workflow_call:
+    inputs:
+      config-path:
+        required: true
+        type: string
+    secrets:
+      token:
+        required: true
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
