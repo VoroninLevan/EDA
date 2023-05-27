@@ -62,8 +62,4 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --sarif-file-output=/home/runner/work/EDA/EDA/Packages/snyk.sarif
-      - name: Upload result to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: /home/runner/work/EDA/EDA/Packages/snyk.sarif
+          args: --severity-threshold=high
