@@ -11,6 +11,9 @@ env:
 jobs:
   callTo-Labeler:
     uses: VoroninLevan/EDA/.github/workflows/Labeler.yml@master
+    permissions:
+      contents: read
+      pull-requests: write
   callTo-TestWF:
     uses: VoroninLevan/EDA/.github/workflows/TestWF.yml@master
   callTo-BuildAndroid:
