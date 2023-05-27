@@ -16,5 +16,7 @@ jobs:
       pull-requests: write
   callTo-TestWF:
     uses: VoroninLevan/EDA/.github/workflows/TestWF.yml@master
+    secrets: inherit
   callTo-BuildAndroid:
     uses: VoroninLevan/EDA/.github/workflows/BuildAndroid.yml@master
+    secrets: inherit
