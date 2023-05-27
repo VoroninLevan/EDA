@@ -1,19 +1,16 @@
-name: Test feature branch 🧪
+name: Build Android 🔨📱
 
-on: 
-  push:
-    branches-ignore:
-      - master
-      - QA
-      - Dev
-
+on: workflow_call
+        
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
   
 jobs:
-  testRunner:
-    name: Test all modes 📝
+  buildAndroid:
+    name: Build for Android 📱
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -38,23 +35,22 @@ jobs:
         uses: actions/cache@v2
         with:
           path: Library
-          key: Library-test-project
+          key: Library-build-Android
           restore-keys: |
-            Library-test-project-
+            Library-build-
             Library-
 
-      - uses: webbertakken/unity-test-runner@v2
-        id: testRunner
+      - uses: webbertakken/unity-builder@v2
         with:
-          testMode: all
+          targetPlatform: Android
 
       - uses: actions/upload-artifact@v2
         with:
-          name: Test results (all modes)
-          path: ${{ steps.testRunner.outputs.artifactsPath }}
-
+          name: build-Android
+          path: build/Android
+          
   slackFailedNotification:
-    needs: testRunner
+    needs: buildAndroid
     if: ${{ always() && contains(join(needs.testRunner.result, ','), 'failure') }}
     name: Slack Failure Notification
     runs-on: ubuntu-latest
@@ -65,13 +61,13 @@ jobs:
         env:
           SLACK_USERNAME: RoboRam
           SLACK_TITLE: FAILURE
-          SLACK_MESSAGE: ':x: Test job failed :ram:'
-          SLACK_CHANNEL: ghintegration
+          SLACK_MESSAGE: ':x: Android build failed :ram:'
+          SLACK_CHANNEL: build
           SLACK_COLOR: ${{ job.status }}
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          
+
   slackSuccessNotification:
-    needs: testRunner
+    needs: buildAndroid
     if: ${{ always() && contains(join(needs.testRunner.result, ','), 'success') }}
     name: Slack Successful Notification
     runs-on: ubuntu-latest
@@ -82,7 +78,7 @@ jobs:
         env:
           SLACK_USERNAME: RoboRam
           SLACK_TITLE: SUCCESS
-          SLACK_MESSAGE: ':green_apple: Test job succeeded :ram:'
-          SLACK_CHANNEL: ghintegration
+          SLACK_MESSAGE: ':green_apple: Android build succeeded :ram:'
+          SLACK_CHANNEL: build
           SLACK_COLOR: ${{ job.status }}
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}

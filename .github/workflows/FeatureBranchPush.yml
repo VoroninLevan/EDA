@@ -1,0 +1,17 @@
+name: Test 🧪 feature branch
+
+on:
+  push:
+    branches-ignore:
+      - master
+      - QA
+      - Dev
+
+env:
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+
+jobs:
+  callTo-Labeler:
+    uses: VoroninLevan/EDA/.github/workflows/Labeler.yml@master
+  callTo-TestWF:
+    uses: VoroninLevan/EDA/.github/workflows/TestWF.yml@master

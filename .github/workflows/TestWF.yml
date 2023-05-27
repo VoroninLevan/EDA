@@ -1,0 +1,83 @@
+name: Test 🧪
+
+on: workflow_call
+        
+env:
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+  
+jobs:
+  testRunner:
+    name: Test all modes 📝
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Create LFS file list
+        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+
+      - name: Restore LFS cache
+        uses: actions/cache@v2
+        id: lfs-cache
+        with:
+          path: .git/lfs
+          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
+
+      - name: Git LFS Pull
+        run: |
+          git lfs pull
+          git add .
+          git reset --hard
+
+      - name: Restore Library cache
+        uses: actions/cache@v2
+        with:
+          path: Library
+          key: Library-test-project
+          restore-keys: |
+            Library-test-project-
+            Library-
+
+      - uses: webbertakken/unity-test-runner@v2
+        id: testRunner
+        with:
+          testMode: all
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Test results (all modes)
+          path: ${{ steps.testRunner.outputs.artifactsPath }}
+
+  slackFailedNotification:
+    needs: testRunner
+    if: ${{ always() && contains(join(needs.testRunner.result, ','), 'failure') }}
+    name: Slack Failure Notification
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_USERNAME: RoboRam
+          SLACK_TITLE: FAILURE
+          SLACK_MESSAGE: ':x: Test job failed :ram:'
+          SLACK_CHANNEL: test
+          SLACK_COLOR: ${{ job.status }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          
+  slackSuccessNotification:
+    needs: testRunner
+    if: ${{ always() && contains(join(needs.testRunner.result, ','), 'success') }}
+    name: Slack Successful Notification
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_USERNAME: RoboRam
+          SLACK_TITLE: SUCCESS
+          SLACK_MESSAGE: ':green_apple: Test job succeeded :ram:'
+          SLACK_CHANNEL: test
+          SLACK_COLOR: ${{ job.status }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
