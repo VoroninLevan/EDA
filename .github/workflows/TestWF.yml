@@ -1,4 +1,4 @@
-name: Test feature branch 🧪
+name: Test 🧪
 
 on:
   workflow_call:
