@@ -1,5 +1,8 @@
 repo:
 - '*'
+
+workflow:
+- .github/workflows/*
   
 readme:
 - README.md
