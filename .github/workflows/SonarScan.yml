@@ -1,6 +1,7 @@
-on: push
+name: SonarQube Scan 🔍
 
-name: Scan
+on: workflow_call
+
 jobs:
   sonarqube:
     runs-on: ubuntu-latest
