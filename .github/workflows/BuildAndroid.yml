@@ -58,7 +58,7 @@ jobs:
         run: |
           pwd
           ls -ll
-          cd /home/runner/work/EDA/EDA/build/Android/Android.apk
+          cd /home/runner/work/EDA/EDA/build/Android/
           pwd
           ls -ll
           
