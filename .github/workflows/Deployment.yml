@@ -1,26 +1,73 @@
-name: Deployment
+name: Deploy 🚀
+
 on: workflow_call
 
 jobs:
-  my_job:
+  uploadToGDriveDev:
+    name: Upload to Develop
+    if : github.event.ref == 'refs/heads/Dev'
     runs-on: ubuntu-latest
-
+    environment:
+      name: Dev
     steps:
-
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Archive files
-        run: |
-          sudo apt-get update
-          sudo apt-get install zip
-          zip -r archive.zip *
+      - uses: actions/download-artifact@v2
+        with:
+          name: build-Android
+          path: build/Android
 
-      - name: Upload to gdrive
+      - name: Upload to g-drive
         uses: adityak74/google-drive-upload-git-action@main
         with:
           credentials: ${{ secrets.CREDENTIALS }}
-          filename: "archive.zip"
+          filename: "/home/runner/work/EDA/EDA/build/Android/Android.apk"
           folderId: ${{ secrets.FOLDER_ID_DEV }}
-          name: "documentation.zip"
+          overwrite: "true"
+          
+  uploadToGDriveQA:
+    name: Upload to QA
+    if: github.event.ref == 'refs/heads/QA'
+    runs-on: ubuntu-latest
+    environment:
+      name: QA
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: build-Android
+          path: build/Android
+
+      - name: Upload to g-drive
+        uses: adityak74/google-drive-upload-git-action@main
+        with:
+          credentials: ${{ secrets.CREDENTIALS }}
+          filename: "/home/runner/work/EDA/EDA/build/Android/Android.apk"
+          folderId: ${{ secrets.FOLDER_ID_QA }}
+          overwrite: "true"
+          
+  uploadToGDriveProd:
+    name: Upload to Production
+    if: github.event.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    environment:
+      name: Production
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: build-Android
+          path: build/Android
+
+      - name: Upload to g-drive
+        uses: adityak74/google-drive-upload-git-action@main
+        with:
+          credentials: ${{ secrets.CREDENTIALS }}
+          filename: "/home/runner/work/EDA/EDA/build/Android/Android.apk"
+          folderId: ${{ secrets.FOLDER_ID_PROD }}
           overwrite: "true"
