@@ -49,6 +49,9 @@ jobs:
           name: build-Android
           path: build/Android
           
+      -name: Navigate to apk
+       run: cd /home/runner/work/EDA/EDA/build/Android/
+          
       - name: Upload to gdrive
         uses: adityak74/google-drive-upload-git-action@main
         with:
