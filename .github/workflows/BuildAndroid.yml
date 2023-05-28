@@ -55,12 +55,12 @@ jobs:
           path: build/Android
           
       - name: Check location 2
-          run: |
-            pwd
-            ls -ll
-            cd /home/runner/work/EDA/EDA/build/Android/Android.apk
-            pwd
-            ls -ll
+        run: |
+          pwd
+          ls -ll
+          cd /home/runner/work/EDA/EDA/build/Android/Android.apk
+          pwd
+          ls -ll
           
       - name: Upload to gdrive
         uses: adityak74/google-drive-upload-git-action@main
