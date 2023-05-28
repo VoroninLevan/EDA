@@ -29,5 +29,5 @@ jobs:
     secrets: inherit
   callTo-Deploy:
     needs: callTo-BuildAndroid
-    uses: VoroninLevan/EDA/.github/workflows/Deploy.yml@master
+    uses: VoroninLevan/EDA/.github/workflows/Deployment.yml@master
     secrets: inherit
