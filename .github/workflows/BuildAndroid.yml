@@ -12,6 +12,11 @@ jobs:
     strategy:
       fail-fast: false
     steps:
+      - name: Check location
+        run: |
+          pwd
+          ls -ll
+          
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -49,14 +54,19 @@ jobs:
           name: build-Android
           path: build/Android
           
-      -name: Navigate to apk
-       run: cd /home/runner/work/EDA/EDA/build/Android/
+      - name: Check location 2
+          run: |
+            pwd
+            ls -ll
+            cd /home/runner/work/EDA/EDA/build/Android/Android.apk
+            pwd
+            ls -ll
           
       - name: Upload to gdrive
         uses: adityak74/google-drive-upload-git-action@main
         with:
           credentials: ${{ secrets.CREDENTIALS }}
-          filename: "Android.apk"
+          filename: "/home/runner/work/EDA/EDA/build/Android/Android.apk"
           folderId: ${{ secrets.FOLDER_ID_DEV }}
           overwrite: "true"
           
