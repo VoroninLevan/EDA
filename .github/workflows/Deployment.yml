@@ -1,10 +1,5 @@
 name: Deployment
-on:
-  push:
-    branches-ignore:
-      - master
-      - QA
-      - Dev
+on: workflow_call
 
 jobs:
   my_job:
@@ -27,5 +22,5 @@ jobs:
           credentials: ${{ secrets.CREDENTIALS }}
           filename: "archive.zip"
           folderId: ${{ secrets.FOLDER_ID_DEV }}
-          name: "documentation.zip" # optional string
-          overwrite: "true" # optional boolean
+          name: "documentation.zip"
+          overwrite: "true"
