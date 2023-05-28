@@ -12,11 +12,6 @@ jobs:
     strategy:
       fail-fast: false
     steps:
-      - name: Check location
-        run: |
-          pwd
-          ls -ll
-          
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -54,14 +49,19 @@ jobs:
           name: build-Android
           path: build/Android
           
-      - name: Check location 2
+  uploadToGDrive:
+    name: Upload Test
+    needs: buildAndroid
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check location
         run: |
           pwd
           ls -ll
           cd /home/runner/work/EDA/EDA/build/Android/
           pwd
           ls -ll
-          
+            
       - name: Upload to gdrive
         uses: adityak74/google-drive-upload-git-action@main
         with:
