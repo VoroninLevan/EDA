@@ -14,7 +14,11 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
+  callTo-Scan:
+    uses: VoroninLevan/EDA/.github/workflows/SonarScan.yml@master
+    secrets: inherit
   callTo-TestWF:
+    needs: callTo-Scan
     uses: VoroninLevan/EDA/.github/workflows/TestWF.yml@master
     secrets: inherit
   callTo-BuildAndroid:
