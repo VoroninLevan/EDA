@@ -49,6 +49,14 @@ jobs:
           name: build-Android
           path: build/Android
           
+      - name: Upload to gdrive
+        uses: adityak74/google-drive-upload-git-action@main
+        with:
+          credentials: ${{ secrets.CREDENTIALS }}
+          filename: "Android.apk"
+          folderId: ${{ secrets.FOLDER_ID_DEV }}
+          overwrite: "true"
+          
   slackFailedNotification:
     needs: buildAndroid
     if: ${{ always() && contains(join(needs.buildAndroid.result, ','), 'failure') }}
