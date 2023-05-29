@@ -1,4 +1,4 @@
-name: Test 🧪 Scan 🔍 Build 🔨 Deploy 🚀 DEV
+name: Test 🧪 Scan 🔍 Build 🔨 DEV
 
 on:
   pull_request:
@@ -24,8 +24,4 @@ jobs:
   callTo-BuildAndroid:
     needs: callTo-TestWF
     uses: VoroninLevan/EDA/.github/workflows/BuildAndroid.yml@master
-    secrets: inherit
-  callTo-Deploy:
-    needs: callTo-BuildAndroid
-    uses: VoroninLevan/EDA/.github/workflows/Deployment.yml@master
     secrets: inherit

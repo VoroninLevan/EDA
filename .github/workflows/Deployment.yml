@@ -1,11 +1,11 @@
 name: Deploy 🚀
 
-on: workflow_call
+on: push
 
 jobs:
   uploadToGDriveDev:
     name: Upload to Develop
-    if : github.ref == 'refs/heads/Dev'
+    if: github.ref == 'refs/heads/Dev'
     runs-on: ubuntu-latest
     environment:
       name: Dev
