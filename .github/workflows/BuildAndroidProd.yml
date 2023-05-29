@@ -1,0 +1,107 @@
+name: Build Android 🔨📱 PROD
+
+on: workflow_call
+        
+env:
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+  
+jobs:
+  buildAndroid:
+    name: Build for Android 📱
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Create LFS file list
+        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+
+      - name: Restore LFS cache
+        uses: actions/cache@v2
+        id: lfs-cache
+        with:
+          path: .git/lfs
+          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
+
+      - name: Git LFS Pull
+        run: |
+          git lfs pull
+          git add .
+          git reset --hard
+
+      - name: Restore Library cache
+        uses: actions/cache@v2
+        with:
+          path: Library
+          key: Library-build-Android
+          restore-keys: |
+            Library-build-
+            Library-
+
+      - uses: webbertakken/unity-builder@v2
+        with:
+          targetPlatform: Android
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: build-Android
+          path: build/Android
+          
+  slackFailedNotification:
+    needs: buildAndroid
+    if: ${{ always() && contains(join(needs.buildAndroid.result, ','), 'failure') }}
+    name: Slack Failure Notification
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_USERNAME: RoboRam
+          SLACK_TITLE: FAILURE
+          SLACK_MESSAGE: ':x: Android build failed :ram:'
+          SLACK_CHANNEL: build
+          SLACK_COLOR: ${{ job.status }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+
+  slackSuccessNotification:
+    needs: buildAndroid
+    if: ${{ always() && contains(join(needs.buildAndroid.result, ','), 'success') }}
+    name: Slack Successful Notification
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_USERNAME: RoboRam
+          SLACK_TITLE: SUCCESS
+          SLACK_MESSAGE: ':green_apple: Android build succeeded :ram:'
+          SLACK_CHANNEL: build
+          SLACK_COLOR: ${{ job.status }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          
+  uploadToGDriveDev:
+    needs: buildAndroid
+    name: Upload to Production
+    runs-on: ubuntu-latest
+    environment:
+      name: Production
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: build-Android
+          path: build/Android
+
+      - name: Upload to g-drive
+        uses: adityak74/google-drive-upload-git-action@main
+        with:
+          credentials: ${{ secrets.CREDENTIALS }}
+          filename: "/home/runner/work/EDA/EDA/build/Android/Android.apk"
+          folderId: ${{ secrets.FOLDER_ID_PROD }}
+          overwrite: "true"

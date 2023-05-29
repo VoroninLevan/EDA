@@ -1,4 +1,4 @@
-name: Build Android 🔨📱
+name: Build Android 🔨📱 Dev
 
 on: workflow_call
         
@@ -82,3 +82,26 @@ jobs:
           SLACK_CHANNEL: build
           SLACK_COLOR: ${{ job.status }}
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          
+  uploadToGDriveDev:
+    needs: buildAndroid
+    name: Upload to Develop
+    runs-on: ubuntu-latest
+    environment:
+      name: Dev
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: build-Android
+          path: build/Android
+
+      - name: Upload to g-drive
+        uses: adityak74/google-drive-upload-git-action@main
+        with:
+          credentials: ${{ secrets.CREDENTIALS }}
+          filename: "/home/runner/work/EDA/EDA/build/Android/Android.apk"
+          folderId: ${{ secrets.FOLDER_ID_DEV }}
+          overwrite: "true"
