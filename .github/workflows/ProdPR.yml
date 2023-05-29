@@ -1,9 +1,9 @@
-name: Test 🧪 Scan 🔍 Build 🔨 Deploy 🚀 DEV
+name: Test 🧪 Scan 🔍 Build 🔨 Deploy 🚀 QA
 
 on:
   pull_request:
     branches:
-      - Dev
+      - master
         
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -21,7 +21,7 @@ jobs:
     needs: callTo-Scan
     uses: VoroninLevan/EDA/.github/workflows/TestWF.yml@master
     secrets: inherit
-  callTo-BuildAndroidDev:
+  callTo-BuildAndroidPROD:
     needs: callTo-TestWF
-    uses: VoroninLevan/EDA/.github/workflows/BuildAndroidDev.yml@master
+    uses: VoroninLevan/EDA/.github/workflows/BuildAndroidProd.yml@master
     secrets: inherit
