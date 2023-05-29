@@ -1,0 +1,28 @@
+name: Test 🧪 Scan 🔍 Build 🔨 Deploy 🚀 QA-PROD
+
+on:
+  pull_request:
+    branches:
+      - QA
+      - master
+        
+env:
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+  
+jobs:
+  callTo-Labeler:
+    uses: VoroninLevan/EDA/.github/workflows/Labeler.yml@master
+    permissions:
+      contents: read
+      pull-requests: write
+  callTo-Scan:
+    uses: VoroninLevan/EDA/.github/workflows/SonarScan.yml@master
+    secrets: inherit
+  callTo-TestWF:
+    needs: callTo-Scan
+    uses: VoroninLevan/EDA/.github/workflows/TestWF.yml@master
+    secrets: inherit
+  callTo-Deploy:
+    needs: callTo-BuildAndroid
+    uses: VoroninLevan/EDA/.github/workflows/Deployment.yml@master
+    secrets: inherit
