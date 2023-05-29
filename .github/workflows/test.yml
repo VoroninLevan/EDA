@@ -6,14 +6,20 @@ jobs:
   dev:
     name: dev
     if: github.ref == 'refs/heads/Dev'
-    run: echo Dev
+    steps:
+      - name: Dev
+        run: echo Dev
     
   qa:
     name: qa
     if: github.ref == 'refs/heads/QA'
-    run: echo QA
+    steps:
+      - name: QA
+        run: echo QA
     
   master:
     name: master
     if: github.ref == 'refs/heads/master'
-    run: echo master
+    steps:
+      - name: master
+        run: echo master
