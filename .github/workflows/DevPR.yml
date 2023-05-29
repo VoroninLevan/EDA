@@ -1,4 +1,4 @@
-name: Test 🧪 Scan 🔍 Build 🔨 Deploy 🚀 DEV
+name: Test 🧪 Scan 🔍 Build 🔨 DEV
 
 on:
   pull_request:
