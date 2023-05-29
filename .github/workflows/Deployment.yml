@@ -5,7 +5,7 @@ on: workflow_call
 jobs:
   uploadToGDriveDev:
     name: Upload to Develop
-    if : github.event.ref == 'refs/heads/Dev'
+    if : github.ref == 'refs/heads/Dev'
     runs-on: ubuntu-latest
     environment:
       name: Dev
@@ -28,7 +28,7 @@ jobs:
           
   uploadToGDriveQA:
     name: Upload to QA
-    if: github.event.ref == 'refs/heads/QA'
+    if: github.ref == 'refs/heads/QA'
     runs-on: ubuntu-latest
     environment:
       name: QA
@@ -51,7 +51,7 @@ jobs:
           
   uploadToGDriveProd:
     name: Upload to Production
-    if: github.event.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     environment:
       name: Production
