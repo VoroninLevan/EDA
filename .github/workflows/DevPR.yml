@@ -25,7 +25,3 @@ jobs:
     needs: callTo-TestWF
     uses: VoroninLevan/EDA/.github/workflows/BuildAndroid.yml@master
     secrets: inherit
-  callTo-Deploy:
-    needs: callTo-BuildAndroid
-    uses: VoroninLevan/EDA/.github/workflows/Deployment.yml@master
-    secrets: inherit
