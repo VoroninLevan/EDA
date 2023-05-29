@@ -1,11 +1,9 @@
-name: Test 🧪 Scan 🔍 Build 🔨 Deploy 🚀
+name: Test 🧪 Scan 🔍 Build 🔨 Deploy 🚀 DEV
 
 on:
   pull_request:
     branches:
       - Dev
-      - QA
-      - master
         
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
